@@ -49,13 +49,16 @@ defmodule HelloFinance.UserTest do
       assert errors_on(result) == %{email: ["has invalid format"]}
     end
 
-    # test "when email is already used, returns an error" do
-    #   params = %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
-    #   {:ok, valid_user} = User.build(params)
+    test "when email has already been taken, returns an error" do
+      params = %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
+      {:ok, user} = User.build(params)
 
-    #   Repo.insert(valid_user)
+      Repo.insert(user)
 
-    #   assert "a" == "b"
-    # end
+      {:error, result} = User.build(params)
+
+      assert %Ecto.Changeset{valid?: false} = result
+      assert errors_on(result) == %{email: ["has already been taken"]}
+    end
   end
 end

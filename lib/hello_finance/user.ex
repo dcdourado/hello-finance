@@ -3,6 +3,9 @@ defmodule HelloFinance.User do
 
   import Ecto.Changeset
 
+  alias Ecto.Changeset
+  alias HelloFinance.{Repo, User}
+
   schema "users" do
     field :name, :string
     field :email, :string
@@ -26,14 +29,27 @@ defmodule HelloFinance.User do
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email)
+    |> validate_unique_email()
     |> validate_length(:password, min: 6)
     |> put_pass_hash()
   end
 
-  defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+  defp put_pass_hash(%Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Argon2.add_hash(password))
   end
 
-  defp put_pass_hash(changeset), do: changeset
+  defp put_pass_hash(changeset) do
+    changeset
+  end
+
+  defp validate_unique_email(%Changeset{valid?: true, changes: %{email: email}} = changeset) do
+    case Repo.get_by(User, email: email) do
+      nil -> changeset
+      _user -> add_error(changeset, :email, "has already been taken")
+    end
+  end
+
+  defp validate_unique_email(changeset) do
+    changeset
+  end
 end
