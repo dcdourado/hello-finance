@@ -6,6 +6,7 @@ defmodule HelloFinance.Repo.Migrations.AddUserTable do
       add :name, :string
       add :email, :string
       add :password_hash, :string
+      timestamps()
     end
   end
 end

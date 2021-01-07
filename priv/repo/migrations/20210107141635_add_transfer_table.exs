@@ -7,6 +7,7 @@ defmodule HelloFinance.Repo.Migrations.AddTransferTable do
       add :currency, :string
       add :sender_account_id, references(:accounts)
       add :receiver_account_id, references(:accounts)
+      timestamps()
     end
   end
 end

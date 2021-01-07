@@ -6,6 +6,7 @@ defmodule HelloFinance.Repo.Migrations.AddAccountTable do
       add :balance, :integer
       add :currency, :string
       add :user_id, references(:users)
+      timestamps()
     end
   end
 end
