@@ -7,5 +7,7 @@ defmodule HelloFinanceWeb.Router do
 
   scope "/api", HelloFinanceWeb do
     pipe_through :api
+
+    post "/users", UsersController, :create
   end
 end
