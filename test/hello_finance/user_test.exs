@@ -6,7 +6,6 @@ defmodule HelloFinance.UserTest do
   describe "build/1" do
     test "when all params are valid, returns a valid changeset" do
       params = %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
-
       result = User.build(params)
 
       assert {:ok, %User{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}} =
