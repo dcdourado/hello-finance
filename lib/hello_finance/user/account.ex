@@ -34,7 +34,7 @@ defmodule HelloFinance.User.Account do
 
   defp validate_money(%Changeset{valid?: false} = changeset), do: changeset
 
-  # TO-DO: add_error separately for each case
+  # TODO: add_error separately for each case
   defp validate_money(%Changeset{changes: %{currency: currency, balance: balance}} = changeset) do
     case Currency.build(currency, balance) do
       {:ok, _currency} -> changeset
