@@ -4,6 +4,7 @@ defmodule HelloFinance.User.Account do
   import Ecto.Changeset
 
   alias Ecto.Changeset
+  alias HelloFinance.Currency
   alias HelloFinance.User
 
   schema "accounts" do
@@ -27,7 +28,18 @@ defmodule HelloFinance.User.Account do
     module
     |> cast(params, @required_params)
     |> validate_required(@required_params)
+    |> validate_money()
     |> validate_user()
+  end
+
+  defp validate_money(%Changeset{valid?: false} = changeset), do: changeset
+
+  # TO-DO: add_error separately for each case
+  defp validate_money(%Changeset{changes: %{currency: currency, balance: balance}} = changeset) do
+    case Currency.build(currency, balance) do
+      {:ok, _currency} -> changeset
+      _error -> changeset |> add_error(:currency, "invalid") |> add_error(:balance, "invalid")
+    end
   end
 
   defp validate_user(%Changeset{valid?: false} = changeset), do: changeset

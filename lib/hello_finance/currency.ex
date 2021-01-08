@@ -189,17 +189,21 @@ defmodule HelloFinance.Currency do
   ]
 
   def build(code, value) do
-    result =
-      %__MODULE__{
-        code: code,
-        value: value
-      }
-      |> validate_code()
-      |> validate_value()
-      |> apply_status()
+    %__MODULE__{
+      code: code,
+      value: value
+    }
+    |> validate_code()
+    |> validate_value()
+    |> apply_status()
   end
 
-  defp validate_code(%{code: code} = currency) do
+  defp validate_code(%{code: code} = currency) when is_atom(code), do: code_exists(currency, code)
+
+  defp validate_code(%{code: code} = currency) when is_binary(code),
+    do: code_exists(currency, String.to_atom(code))
+
+  defp code_exists(currency, code) do
     case Enum.member?(@codes, code) do
       true -> currency
       false -> {:error, message: "code not found"}
