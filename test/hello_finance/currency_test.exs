@@ -5,7 +5,7 @@ defmodule HelloFinance.CurrencyTest do
 
   describe "build/2" do
     test "when all params are valid, returns currency" do
-      result = Currency.build(:BRL, 100)
+      assert {:ok, result} = Currency.build(:BRL, 100)
 
       assert result == %Currency{code: :BRL, value: 100}
     end

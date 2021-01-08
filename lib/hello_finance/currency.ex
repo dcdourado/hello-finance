@@ -189,12 +189,14 @@ defmodule HelloFinance.Currency do
   ]
 
   def build(code, value) do
-    %__MODULE__{
-      code: code,
-      value: value
-    }
-    |> validate_code()
-    |> validate_value()
+    result =
+      %__MODULE__{
+        code: code,
+        value: value
+      }
+      |> validate_code()
+      |> validate_value()
+      |> apply_status()
   end
 
   defp validate_code(%{code: code} = currency) do
@@ -204,7 +206,7 @@ defmodule HelloFinance.Currency do
     end
   end
 
-  defp validate_value({:error, _error} = error), do: error
+  defp validate_value({:error, _message} = error), do: error
 
   defp validate_value(%{value: value}) when not is_integer(value),
     do: {:error, message: "value should be an integer"}
@@ -213,4 +215,7 @@ defmodule HelloFinance.Currency do
     do: {:error, message: "value should be positive"}
 
   defp validate_value(currency), do: currency
+
+  defp apply_status({:error, _message} = error), do: error
+  defp apply_status(struct), do: {:ok, struct}
 end
