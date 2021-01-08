@@ -2,7 +2,7 @@ defmodule HelloFinanceWeb.Controllers.UsersControllerTest do
   use HelloFinanceWeb.ConnCase
 
   @create_attrs %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
-  @invalid_attrs %{name: nil, email: nil, passworD: nil}
+  @invalid_attrs %{name: nil, email: nil, password: nil}
 
   describe "create/2" do
     test "when all params are valid, creates the user and returns 201", %{conn: conn} do
