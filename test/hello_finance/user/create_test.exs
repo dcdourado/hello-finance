@@ -21,6 +21,8 @@ defmodule HelloFinance.User.CreateTest do
                email: ["has invalid format"],
                password: ["should be at least 6 character(s)"]
              }
+
+      assert Repo.get_by(User, email: "dcdourado@gmail.com") == nil
     end
   end
 end
