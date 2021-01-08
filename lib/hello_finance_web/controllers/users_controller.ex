@@ -1,6 +1,8 @@
 defmodule HelloFinanceWeb.UsersController do
   use HelloFinanceWeb, :controller
 
+  action_fallback HelloFinanceWeb.FallbackController
+
   def create(conn, params) do
     params
     |> HelloFinance.create_user()
