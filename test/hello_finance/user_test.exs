@@ -7,11 +7,11 @@ defmodule HelloFinance.UserTest do
   @no_name_attrs %{email: "dcdourado@gmail.com", password: "123456"}
   @no_email_attrs %{name: "Diogo", password: "123456"}
   @no_password_attrs %{name: "Diogo", email: "dcdourado@gmail.com"}
-  @min_length_password_attrs %{name: "Diogo", email: "dcdourado@gmail.com", password: "12345"}
+  @invalid_password_attrs %{name: "Diogo", email: "dcdourado@gmail.com", password: "12345"}
   @invalid_email_attrs %{name: "Diogo", email: "dcdourado.com", password: "123456"}
 
   describe "build/1" do
-    test "when all params are valid, returns a valid changeset" do
+    test "when all params are valid, returns an User struct" do
       result = User.build(@valid_attrs)
 
       assert {:ok, %User{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}} =
@@ -36,7 +36,7 @@ defmodule HelloFinance.UserTest do
     end
 
     test "when password do not attend min length (6), returns an error" do
-      {:error, result} = User.build(@min_length_password_attrs)
+      {:error, result} = User.build(@invalid_password_attrs)
 
       assert %Ecto.Changeset{valid?: false} = result
       assert errors_on(result) == %{password: ["should be at least 6 character(s)"]}

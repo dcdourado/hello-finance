@@ -30,6 +30,8 @@ defmodule HelloFinance.User.Account do
     |> validate_user()
   end
 
+  defp validate_user(%Changeset{valid?: false} = changeset), do: changeset
+
   defp validate_user(%Changeset{changes: %{user_id: id}} = changeset) do
     case User.Get.call(id) do
       {:ok, _user} -> changeset
