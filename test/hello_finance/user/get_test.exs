@@ -8,18 +8,16 @@ defmodule HelloFinance.User.GetTest do
 
   describe "call/1" do
     test "when the given id exists, returns the user" do
-      {:ok, user} = HelloFinance.create_user(@user_attrs)
+      assert {:ok, user} = HelloFinance.create_user(@user_attrs)
+
       %User{id: id} = user
-
-      {:ok, result} = Get.call(id)
-
-      assert %User{id: id} = result
+      assert {:ok, result} = Get.call(id)
     end
 
     test "when the given id does not exists, returns an error" do
-      result = Get.call(-1)
+      assert {:error, result} = Get.call(-1)
 
-      assert result == {:error, [message: "user not found"]}
+      assert result == [message: "user not found"]
     end
   end
 end

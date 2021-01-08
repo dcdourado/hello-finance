@@ -1,7 +1,7 @@
 defmodule HelloFinance.User.AccountTest do
   use HelloFinance.DataCase
 
-  alias HelloFinance.User
+  alias HelloFinance.{Repo, User}
   alias User.Account
 
   @valid_attrs_no_user %{currency: "BRL", balance: 100}
@@ -13,9 +13,10 @@ defmodule HelloFinance.User.AccountTest do
 
   describe "build/1" do
     setup do
-      {:ok, user} = HelloFinance.create_user(@helper_user_attrs)
-      %User{id: id} = user
+      {:ok, user_struct} = User.build(@helper_user_attrs)
+      {:ok, user} = Repo.insert(user_struct)
 
+      %User{id: id} = user
       {:ok, id: id}
     end
 
