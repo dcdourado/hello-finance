@@ -11,13 +11,16 @@ defmodule HelloFinance.User.CreateTest do
     test "when all params are valid, inserts user to database" do
       assert {:ok, result} = Create.call(@valid_attrs)
 
-      assert %User{name: "Diogo", email: "dcdourado@gmail.com"} = result
+      assert result = Repo.get_by(User, email: "dcdourado@gmail.com")
     end
 
     test "when params are invalid, returns an error" do
       assert {:error, result} = Create.call(@invalid_attrs)
 
-      assert Repo.get_by(User, email: "dcdouradogmail.com") == nil
+      assert errors_on(result) == %{
+               email: ["has invalid format"],
+               password: ["should be at least 6 character(s)"]
+             }
     end
   end
 end
