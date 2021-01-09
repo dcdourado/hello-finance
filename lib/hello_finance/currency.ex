@@ -200,8 +200,12 @@ defmodule HelloFinance.Currency do
 
   defp validate_code(%{code: code} = currency) when is_atom(code), do: code_exists(currency, code)
 
-  defp validate_code(%{code: code} = currency) when is_binary(code),
-    do: code_exists(currency, String.to_atom(code))
+  defp validate_code(%{code: code, value: value}) when is_binary(code) do
+    atom_code = String.to_atom(code)
+
+    currency = %{code: atom_code, value: value}
+    code_exists(currency, atom_code)
+  end
 
   defp code_exists(currency, code) do
     case Enum.member?(@codes, code) do
