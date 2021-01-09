@@ -1,7 +1,7 @@
 defmodule HelloFinance.ExchangeApi.Client do
   use Tesla
 
-  plug Tesla.Middleware.BaseUrl, "https://api.exchangeratesapi.io/latest"
+  plug Tesla.Middleware.BaseUrl, "https://api.exchangeratesapi.io/latest/"
   plug Tesla.Middleware.JSON
 
   def get_rate(from, to) do
