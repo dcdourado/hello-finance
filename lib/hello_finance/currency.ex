@@ -203,7 +203,7 @@ defmodule HelloFinance.Currency do
   defp validate_code(%{code: code, value: value}) when is_binary(code) do
     atom_code = String.to_atom(code)
 
-    currency = %{code: atom_code, value: value}
+    currency = %__MODULE__{code: atom_code, value: value}
     code_exists(currency, atom_code)
   end
 
