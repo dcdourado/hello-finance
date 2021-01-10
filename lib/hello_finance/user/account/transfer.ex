@@ -56,7 +56,7 @@ defmodule HelloFinance.User.Account.Transfer do
        ) do
     case Account.Get.call(sender_account_id) do
       {:ok, account} -> validate_sender_currency_value(changeset, account, currency, value)
-      _error -> add_error(changeset, :receiver_account_id, "not found")
+      _error -> add_error(changeset, :sender_account_id, "not found")
     end
   end
 
