@@ -8,5 +8,5 @@ defmodule HelloFinance do
   defdelegate create_account(params), to: Account.Create, as: :call
   defdelegate get_account(params), to: Account.Get, as: :call
 
-  defdelegate exchange_currency(from_code, from_value, to_code), to: Currency.Exchange, as: :call
+  defdelegate exchange_currency(value, from_code, to_code), to: Currency.Exchange, as: :call
 end

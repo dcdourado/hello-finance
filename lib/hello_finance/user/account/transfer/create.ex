@@ -47,7 +47,7 @@ defmodule HelloFinance.User.Account.Transfer.Create do
     do: value
 
   defp get_exchanged_value(value, from_currency, to_currency) when from_currency != to_currency do
-    {:ok, money} = HelloFinance.exchange_currency(from_currency, value, to_currency)
+    {:ok, money} = HelloFinance.exchange_currency(value, from_currency, to_currency)
 
     %{value: value} = money
     value

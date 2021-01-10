@@ -16,7 +16,7 @@ defmodule HelloFinance.Currency.ExchangeTest do
           %Tesla.Env{status: 200, body: body}
       end)
 
-      assert {:ok, result} = Exchange.call(:USD, 1, :BRL)
+      assert {:ok, result} = Exchange.call(1, :USD, :BRL)
       assert result == %HelloFinance.Currency{code: :BRL, value: 5}
     end
 
@@ -28,17 +28,17 @@ defmodule HelloFinance.Currency.ExchangeTest do
           %Tesla.Env{status: 200, body: body}
       end)
 
-      assert {:ok, result} = Exchange.call("USD", 1, "BRL")
+      assert {:ok, result} = Exchange.call(1, "USD", "BRL")
       assert result == %HelloFinance.Currency{code: :BRL, value: 5}
     end
 
     test "when value is invalid, returns an error" do
-      assert {:error, result} = Exchange.call(:USD, -1, :BRL)
+      assert {:error, result} = Exchange.call(-1, :USD, :BRL)
       assert result == [message: "value should be positive"]
     end
 
     test "when from code is invalid, returns an error" do
-      assert {:error, result} = Exchange.call(:INVALID, 1, :BRL)
+      assert {:error, result} = Exchange.call(1, :INVALID, :BRL)
       assert result == [message: "code not found"]
     end
 
@@ -48,7 +48,7 @@ defmodule HelloFinance.Currency.ExchangeTest do
           %Tesla.Env{status: 400}
       end)
 
-      assert {:error, result} = Exchange.call(:USD, 1, :INVALID)
+      assert {:error, result} = Exchange.call(1, :USD, :INVALID)
       assert result == [message: "invalid currency code"]
     end
   end
