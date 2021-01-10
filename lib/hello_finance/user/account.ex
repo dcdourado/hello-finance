@@ -8,8 +8,8 @@ defmodule HelloFinance.User.Account do
   alias HelloFinance.User
 
   schema "accounts" do
-    field :balance, :integer
     field :currency, :string
+    field :balance, :integer
     belongs_to(:user, User)
     timestamps()
   end
