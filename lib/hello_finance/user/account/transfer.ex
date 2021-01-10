@@ -70,6 +70,8 @@ defmodule HelloFinance.User.Account.Transfer do
     end
   end
 
+  defp validate_receiver_account(%Changeset{valid?: false} = changeset), do: changeset
+
   defp validate_receiver_account(
          %Changeset{
            changes: %{
