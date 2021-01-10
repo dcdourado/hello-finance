@@ -27,5 +27,12 @@ defmodule HelloFinance.CurrencyTest do
 
       assert result == [message: "value should be an integer"]
     end
+
+    test "when currency is given as string, returns currency with code converted as atom" do
+      assert {:ok, result} = Currency.build("BRL", 100)
+
+      %{code: code} = result
+      assert is_atom(code)
+    end
   end
 end
