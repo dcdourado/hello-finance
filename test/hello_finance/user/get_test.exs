@@ -11,7 +11,9 @@ defmodule HelloFinance.User.GetTest do
       assert {:ok, user} = HelloFinance.create_user(@user_attrs)
 
       %User{id: id} = user
+
       assert {:ok, result} = Get.call(id)
+      assert %User{name: "Diogo", email: "dcdourado@gmail.com"} = result
     end
 
     test "when the given id does not exists, returns an error" do

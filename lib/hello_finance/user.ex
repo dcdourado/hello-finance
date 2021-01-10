@@ -22,7 +22,7 @@ defmodule HelloFinance.User do
     |> apply_action(:insert)
   end
 
-  defp changeset(params), do: create_changeset(%__MODULE__{}, params)
+  def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
   defp create_changeset(module, params) do
     module

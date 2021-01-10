@@ -10,5 +10,6 @@ defmodule HelloFinanceWeb.Router do
 
     post "/users", UsersController, :create
     post "/accounts", AccountsController, :create
+    post "/transfers", TransfersController, :create
   end
 end
