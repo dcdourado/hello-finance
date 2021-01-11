@@ -4,6 +4,10 @@ defmodule HelloFinanceWeb.AccountsController do
   action_fallback HelloFinanceWeb.FallbackController
 
   def create(conn, params) do
+    %{id: user_id} = Guardian.Plug.current_resource(conn)
+
+    params = Map.put(params, "user_id", user_id)
+
     params
     |> HelloFinance.create_account()
     |> handle_response(conn, "create.json", :created)

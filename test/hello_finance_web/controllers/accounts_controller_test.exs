@@ -1,21 +1,23 @@
 defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
   use HelloFinanceWeb.ConnCase
 
-  alias HelloFinance.{Repo, User}
+  import HelloFinanceWeb.Auth.Guardian
 
-  @create_attrs_no_user %{currency: "BRL", balance: 100}
-  @invalid_attrs %{currency: nil, balance: nil, user_id: nil}
-  @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
+  @create_attrs %{currency: "BRL", balance: 100}
+  @invalid_attrs %{currency: nil, balance: nil}
 
   describe "create/2" do
-    test "when all params are valid, creates the user and returns 201", %{conn: conn} do
-      {:ok, user_struct} = User.build(@helper_user_attrs)
-      {:ok, user} = Repo.insert(user_struct)
+    setup %{conn: conn} do
+      params = %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
+      {:ok, user} = HelloFinance.create_user(params)
+      {:ok, token, _claims} = encode_and_sign(user)
 
-      %User{id: user_id} = user
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
+      {:ok, conn: conn}
+    end
 
-      params = Map.put(@create_attrs_no_user, :user_id, user_id)
-      conn = post(conn, Routes.accounts_path(conn, :create, params))
+    test "when all params are valid, creates the account and returns 201", %{conn: conn} do
+      conn = post(conn, Routes.accounts_path(conn, :create, @create_attrs))
 
       assert %{"message" => "Account created"} = json_response(conn, :created)
     end
