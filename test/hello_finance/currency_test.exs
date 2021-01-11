@@ -13,19 +13,19 @@ defmodule HelloFinance.CurrencyTest do
     test "when code doest not exist, returns an error" do
       assert {:error, result} = Currency.build(:INVALID, 100)
 
-      assert result == [message: "code not found"]
+      assert result == [:code, "not found"]
     end
 
     test "when value is negative, returns an error" do
       assert {:error, result} = Currency.build(:BRL, -100)
 
-      assert result == [message: "value should be positive"]
+      assert result == [:value, "should be positive"]
     end
 
     test "when value is not an integer, returns an error" do
       assert {:error, result} = Currency.build(:BRL, 100.10)
 
-      assert result == [message: "value should be an integer"]
+      assert result == [:value, "should be an integer"]
     end
 
     test "when currency is given as string, returns currency with code converted as atom" do
