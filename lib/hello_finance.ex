@@ -9,6 +9,7 @@ defmodule HelloFinance do
 
   defdelegate create_account(params), to: Account.Create, as: :call
   defdelegate get_account(params), to: Account.Get, as: :call
+  defdelegate index_accounts(params), to: Account.Index, as: :call
 
   defdelegate create_transfer(params), to: Transfer.Create, as: :call
 

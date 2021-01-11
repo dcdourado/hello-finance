@@ -13,6 +13,14 @@ defmodule HelloFinanceWeb.AccountsController do
     |> handle_response(conn, "create.json", :created)
   end
 
+  def index(conn, _params) do
+    %{id: user_id} = Guardian.Plug.current_resource(conn)
+
+    user_id
+    |> HelloFinance.index_accounts()
+    |> handle_response(conn, "index.json", :ok)
+  end
+
   defp handle_response({:ok, account}, conn, view, status) do
     conn
     |> put_status(status)
