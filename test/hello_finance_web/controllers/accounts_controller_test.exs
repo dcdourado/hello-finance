@@ -7,15 +7,15 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
   @invalid_attrs %{code: nil, balance: nil}
   @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
 
+  setup %{conn: conn} do
+    {:ok, user} = HelloFinance.create_user(@helper_user_attrs)
+    {:ok, token, _claims} = encode_and_sign(user)
+
+    conn = put_req_header(conn, "authorization", "Bearer #{token}")
+    {:ok, conn: conn}
+  end
+
   describe "create/2" do
-    setup %{conn: conn} do
-      {:ok, user} = HelloFinance.create_user(@helper_user_attrs)
-      {:ok, token, _claims} = encode_and_sign(user)
-
-      conn = put_req_header(conn, "authorization", "Bearer #{token}")
-      {:ok, conn: conn}
-    end
-
     test "when all params are valid, creates the account and returns 201", %{conn: conn} do
       conn = post(conn, Routes.accounts_path(conn, :create, @create_attrs))
 
@@ -28,4 +28,13 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
       assert %{"errors" => errors} = json_response(conn, :bad_request)
     end
   end
+
+  describe "index/2" do
+    test "when called, returns user accounts and 200", %{conn: conn} do
+      conn = get(conn, Routes.accounts_path(conn, :index))
+
+      assert %{"message" => "Accounts fetched"} = json_response(conn, :ok)
+    end
+  end
+
 end
