@@ -8,13 +8,13 @@ defmodule HelloFinance.User.Account do
   alias HelloFinance.User
 
   schema "accounts" do
-    field :currency, :string
+    field :code, :string
     field :balance, :integer
     belongs_to(:user, User)
     timestamps()
   end
 
-  @required_params [:balance, :currency, :user_id]
+  @required_params [:code, :balance, :user_id]
 
   def build(params) do
     params
@@ -30,20 +30,20 @@ defmodule HelloFinance.User.Account do
     module
     |> cast(params, @required_params)
     |> validate_required(@required_params)
-    |> validate_money()
+    |> validate_currency()
     |> validate_user()
   end
 
-  defp validate_money(
-         %Changeset{valid?: true, changes: %{currency: currency, balance: balance}} = changeset
+  defp validate_currency(
+         %Changeset{valid?: true, changes: %{code: code, balance: balance}} = changeset
        ) do
-    case Currency.build(currency, balance) do
+    case Currency.build(code, balance) do
       {:ok, _currency} -> changeset
       {:error, [key, message]} -> add_error(changeset, key, message)
     end
   end
 
-  defp validate_money(changeset), do: changeset
+  defp validate_currency(changeset), do: changeset
 
   defp validate_user(%Changeset{valid?: true, changes: %{user_id: id}} = changeset) do
     case User.Get.call(id) do
