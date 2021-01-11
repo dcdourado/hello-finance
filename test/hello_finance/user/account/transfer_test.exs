@@ -18,16 +18,21 @@ defmodule HelloFinance.User.Account.TransferTest do
       {:ok, %Account{id: sender_account_id}} = Repo.insert(account_struct)
       {:ok, %Account{id: receiver_account_id}} = Repo.insert(account_struct)
 
-      {:ok, sender_account_id: sender_account_id, receiver_account_id: receiver_account_id}
+      {:ok,
+       user_id: user_id,
+       sender_account_id: sender_account_id,
+       receiver_account_id: receiver_account_id}
     end
 
     test "when all params are valid, returns a Transfer struct", %{
+      user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
         currency: "BRL",
         value: 1000,
+        sender_id: user_id,
         sender_account_id: sender_account_id,
         receiver_account_id: receiver_account_id
       }
@@ -43,12 +48,14 @@ defmodule HelloFinance.User.Account.TransferTest do
     end
 
     test "when transfer currency is invalid, returns an error", %{
+      user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
         currency: "INVALID",
         value: 1000,
+        sender_id: user_id,
         sender_account_id: sender_account_id,
         receiver_account_id: receiver_account_id
       }
@@ -59,12 +66,14 @@ defmodule HelloFinance.User.Account.TransferTest do
     end
 
     test "when value is invalid, returns an error", %{
+      user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
         currency: "BRL",
         value: -1000,
+        sender_id: user_id,
         sender_account_id: sender_account_id,
         receiver_account_id: receiver_account_id
       }
@@ -75,12 +84,14 @@ defmodule HelloFinance.User.Account.TransferTest do
     end
 
     test "when transfer currency is not equal to sender account currency, returns an error", %{
+      user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
         currency: "USD",
         value: 1000,
+        sender_id: user_id,
         sender_account_id: sender_account_id,
         receiver_account_id: receiver_account_id
       }
@@ -93,12 +104,14 @@ defmodule HelloFinance.User.Account.TransferTest do
     end
 
     test "when sender does not have enough money, returns an error", %{
+      user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
         currency: "BRL",
         value: 100_000,
+        sender_id: user_id,
         sender_account_id: sender_account_id,
         receiver_account_id: receiver_account_id
       }
@@ -110,12 +123,14 @@ defmodule HelloFinance.User.Account.TransferTest do
              }
     end
 
-    test "when sender does not exists, returns an error", %{
+    test "when sender account does not exists, returns an error", %{
+      user_id: user_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
         currency: "BRL",
         value: 1000,
+        sender_id: user_id,
         sender_account_id: -1,
         receiver_account_id: receiver_account_id
       }
@@ -125,12 +140,14 @@ defmodule HelloFinance.User.Account.TransferTest do
       assert errors_on(changeset) == %{sender_account_id: ["not found"]}
     end
 
-    test "when receiver does not exists, returns an error", %{
+    test "when receiver account does not exists, returns an error", %{
+      user_id: user_id,
       sender_account_id: sender_account_id
     } do
       params = %{
         currency: "BRL",
         value: 1000,
+        sender_id: user_id,
         sender_account_id: sender_account_id,
         receiver_account_id: -1
       }
