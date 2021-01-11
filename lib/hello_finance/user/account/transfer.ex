@@ -10,12 +10,13 @@ defmodule HelloFinance.User.Account.Transfer do
   schema "transfers" do
     field :currency, :string
     field :value, :integer
+    field :sender_id, :integer, virtual: true
     belongs_to(:sender_account, Account)
     belongs_to(:receiver_account, Account)
     timestamps()
   end
 
-  @required_params [:currency, :value, :sender_account_id, :receiver_account_id]
+  @required_params [:currency, :value, :sender_id, :sender_account_id, :receiver_account_id]
 
   def build(params) do
     params
@@ -46,21 +47,35 @@ defmodule HelloFinance.User.Account.Transfer do
   defp validate_sender_account(%Changeset{valid?: false} = changeset), do: changeset
 
   defp validate_sender_account(
-         %Changeset{
-           changes: %{
-             currency: currency,
-             value: value,
-             sender_account_id: sender_account_id
-           }
-         } = changeset
+         %Changeset{changes: %{sender_account_id: sender_account_id}} = changeset
        ) do
     case Account.Get.call(sender_account_id) do
-      {:ok, account} -> validate_sender_currency_value(changeset, account, currency, value)
-      _error -> add_error(changeset, :sender_account_id, "not found")
+      {:ok, account} ->
+        changeset
+        |> validate_sender_ownership(account)
+        |> validate_sender_currency_value(account)
+
+      _error ->
+        add_error(changeset, :sender_account_id, "not found")
     end
   end
 
-  defp validate_sender_currency_value(changeset, account, currency, value) do
+  defp validate_sender_ownership(
+         %Changeset{changes: %{sender_id: sender_id}} = changeset,
+         account
+       ) do
+    %{user_id: account_user_id} = account
+
+    case sender_id do
+      ^account_user_id -> changeset
+      _not_owner -> add_error(changeset, :sender_id, "not owner of account")
+    end
+  end
+
+  defp validate_sender_currency_value(
+         %Changeset{changes: %{currency: currency, value: value}} = changeset,
+         account
+       ) do
     %{currency: account_currency, balance: account_balance} = account
 
     if currency == account_currency and value <= account_balance do
