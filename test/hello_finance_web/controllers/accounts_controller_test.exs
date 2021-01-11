@@ -5,11 +5,11 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
 
   @create_attrs %{currency: "BRL", balance: 100}
   @invalid_attrs %{currency: nil, balance: nil}
+  @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
 
   describe "create/2" do
     setup %{conn: conn} do
-      params = %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
-      {:ok, user} = HelloFinance.create_user(params)
+      {:ok, user} = HelloFinance.create_user(@helper_user_attrs)
       {:ok, token, _claims} = encode_and_sign(user)
 
       conn = put_req_header(conn, "authorization", "Bearer #{token}")
