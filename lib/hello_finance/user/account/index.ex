@@ -5,10 +5,7 @@ defmodule HelloFinance.User.Account.Index do
   alias HelloFinance.User.Account
 
   def call(user_id) do
-    case fetch_accounts(user_id) do
-      nil -> {:error, message: "account not found"}
-      accounts -> {:ok, accounts}
-    end
+    {:ok, fetch_accounts(user_id)}
   end
 
   defp fetch_accounts(user_id) do
