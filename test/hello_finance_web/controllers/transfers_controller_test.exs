@@ -6,8 +6,8 @@ defmodule HelloFinanceWeb.Controllers.TransfersControllerTest do
   alias HelloFinance.{Repo, User}
   alias User.Account
 
-  @create_attrs_no_accounts %{currency: "BRL", value: 100}
-  @invalid_attrs %{currency: nil, value: nil, from: nil, to: nil}
+  @create_attrs_no_accounts %{value: 100}
+  @invalid_attrs %{value: nil, from: nil, to: nil}
   @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
 
   describe "create/2" do
