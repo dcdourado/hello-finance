@@ -34,12 +34,12 @@ defmodule HelloFinance.Currency.ExchangeTest do
 
     test "when value is invalid, returns an error" do
       assert {:error, result} = Exchange.call(-1, :USD, :BRL)
-      assert result == [message: "value should be positive"]
+      assert result == [:value, "should be positive"]
     end
 
     test "when from code is invalid, returns an error" do
       assert {:error, result} = Exchange.call(1, :INVALID, :BRL)
-      assert result == [message: "code not found"]
+      assert result == [:code, "not found"]
     end
 
     test "when to code is invalid, returns an error" do
@@ -49,7 +49,7 @@ defmodule HelloFinance.Currency.ExchangeTest do
       end)
 
       assert {:error, result} = Exchange.call(1, :USD, :INVALID)
-      assert result == [message: "invalid currency code"]
+      assert result == [:code, "not found"]
     end
   end
 end

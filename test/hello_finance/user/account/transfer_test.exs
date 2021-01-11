@@ -62,7 +62,7 @@ defmodule HelloFinance.User.Account.TransferTest do
 
       assert {:error, changeset} = Transfer.build(params)
 
-      assert errors_on(changeset) == %{currency: ["invalid"], value: ["invalid"]}
+      assert errors_on(changeset) == %{code: ["not found"]}
     end
 
     test "when value is invalid, returns an error", %{
@@ -80,7 +80,7 @@ defmodule HelloFinance.User.Account.TransferTest do
 
       assert {:error, changeset} = Transfer.build(params)
 
-      assert errors_on(changeset) == %{currency: ["invalid"], value: ["invalid"]}
+      assert errors_on(changeset) == %{value: ["should be positive"]}
     end
 
     test "when transfer currency is not equal to sender account currency, returns an error", %{

@@ -210,17 +210,17 @@ defmodule HelloFinance.Currency do
   defp code_exists(currency, code) do
     case Enum.member?(@codes, code) do
       true -> currency
-      false -> {:error, message: "code not found"}
+      false -> {:error, [:code, "not found"]}
     end
   end
 
   defp validate_value({:error, _message} = error), do: error
 
   defp validate_value(%{value: value}) when not is_integer(value),
-    do: {:error, message: "value should be an integer"}
+    do: {:error, [:value, "should be an integer"]}
 
   defp validate_value(%{value: value}) when value < 0,
-    do: {:error, message: "value should be positive"}
+    do: {:error, [:value, "should be positive"]}
 
   defp validate_value(currency), do: currency
 
