@@ -4,7 +4,7 @@ defmodule HelloFinance.Repo.Migrations.AddAccountTable do
   def change do
     create table(:accounts) do
       add :balance, :integer
-      add :currency, :string
+      add :code, :string
       add :user_id, references(:users)
       timestamps()
     end

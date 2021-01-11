@@ -3,12 +3,12 @@ defmodule HelloFinanceWeb.AccountsView do
 
   alias HelloFinance.User.Account
 
-  def render("create.json", %{account: %Account{id: id, currency: currency, balance: balance}}) do
+  def render("create.json", %{account: %Account{id: id, code: code, balance: balance}}) do
     %{
       message: "Account created",
       data: %{
         id: id,
-        currency: currency,
+        code: code,
         balance: balance
       }
     }

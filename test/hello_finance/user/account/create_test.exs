@@ -5,7 +5,7 @@ defmodule HelloFinance.User.Account.CreateTest do
   alias User.Account
   alias Account.Create
 
-  @valid_attrs_no_user %{currency: "BRL", balance: 100}
+  @valid_attrs_no_user %{code: "BRL", balance: 100}
   @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
 
   describe "call/1" do

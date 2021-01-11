@@ -12,7 +12,7 @@ defmodule HelloFinance.User.Account.TransferTest do
       {:ok, user_struct} = User.build(@helper_user_attrs)
       {:ok, %User{id: user_id}} = Repo.insert(user_struct)
 
-      account_params = %{currency: "BRL", balance: 1000, user_id: user_id}
+      account_params = %{code: "BRL", balance: 1000, user_id: user_id}
 
       {:ok, account_struct} = Account.build(account_params)
       {:ok, %Account{id: sender_account_id}} = Repo.insert(account_struct)
@@ -39,7 +39,7 @@ defmodule HelloFinance.User.Account.TransferTest do
       assert {:ok, transfer_struct} = Transfer.build(params)
 
       assert %Transfer{
-               currency: "BRL",
+               code: "BRL",
                value: 1000,
                sender_account_id: sender_account_id,
                receiver_account_id: receiver_account_id
