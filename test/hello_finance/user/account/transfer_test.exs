@@ -30,7 +30,6 @@ defmodule HelloFinance.User.Account.TransferTest do
       receiver_account_id: receiver_account_id
     } do
       params = %{
-        currency: "BRL",
         value: 1000,
         sender_id: user_id,
         sender_account_id: sender_account_id,
@@ -47,31 +46,12 @@ defmodule HelloFinance.User.Account.TransferTest do
              } = transfer_struct
     end
 
-    test "when transfer currency is invalid, returns an error", %{
-      user_id: user_id,
-      sender_account_id: sender_account_id,
-      receiver_account_id: receiver_account_id
-    } do
-      params = %{
-        currency: "INVALID",
-        value: 1000,
-        sender_id: user_id,
-        sender_account_id: sender_account_id,
-        receiver_account_id: receiver_account_id
-      }
-
-      assert {:error, changeset} = Transfer.build(params)
-
-      assert errors_on(changeset) == %{code: ["not found"]}
-    end
-
     test "when value is invalid, returns an error", %{
       user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
-        currency: "BRL",
         value: -1000,
         sender_id: user_id,
         sender_account_id: sender_account_id,
@@ -83,33 +63,12 @@ defmodule HelloFinance.User.Account.TransferTest do
       assert errors_on(changeset) == %{value: ["should be positive"]}
     end
 
-    test "when transfer currency is not equal to sender account currency, returns an error", %{
-      user_id: user_id,
-      sender_account_id: sender_account_id,
-      receiver_account_id: receiver_account_id
-    } do
-      params = %{
-        currency: "USD",
-        value: 1000,
-        sender_id: user_id,
-        sender_account_id: sender_account_id,
-        receiver_account_id: receiver_account_id
-      }
-
-      assert {:error, changeset} = Transfer.build(params)
-
-      assert errors_on(changeset) == %{
-               sender_account_id: ["insufficient funds or wrong currency code"]
-             }
-    end
-
     test "when sender does not have enough money, returns an error", %{
       user_id: user_id,
       sender_account_id: sender_account_id,
       receiver_account_id: receiver_account_id
     } do
       params = %{
-        currency: "BRL",
         value: 100_000,
         sender_id: user_id,
         sender_account_id: sender_account_id,
@@ -119,7 +78,7 @@ defmodule HelloFinance.User.Account.TransferTest do
       assert {:error, changeset} = Transfer.build(params)
 
       assert errors_on(changeset) == %{
-               sender_account_id: ["insufficient funds or wrong currency code"]
+               sender_account_id: ["insufficient funds"]
              }
     end
 
@@ -128,7 +87,6 @@ defmodule HelloFinance.User.Account.TransferTest do
       receiver_account_id: receiver_account_id
     } do
       params = %{
-        currency: "BRL",
         value: 1000,
         sender_id: user_id,
         sender_account_id: -1,
@@ -145,7 +103,6 @@ defmodule HelloFinance.User.Account.TransferTest do
       sender_account_id: sender_account_id
     } do
       params = %{
-        currency: "BRL",
         value: 1000,
         sender_id: user_id,
         sender_account_id: sender_account_id,
