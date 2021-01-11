@@ -9,7 +9,10 @@ defmodule HelloFinanceWeb.Router do
     pipe_through :api
 
     post "/users", UsersController, :create
+    post "/signin", UsersController, :sign_in
+
     post "/accounts", AccountsController, :create
+
     post "/transfers", TransfersController, :create
   end
 end

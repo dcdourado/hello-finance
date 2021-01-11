@@ -12,4 +12,8 @@ defmodule HelloFinanceWeb.UsersView do
       }
     }
   end
+
+  def render("sign_in.json", %{token: token}) do
+    %{token: token}
+  end
 end
