@@ -6,7 +6,7 @@ defmodule HelloFinanceWeb.TransfersView do
   def render("create.json", %{
         transfer: %Transfer{
           id: id,
-          currency: currency,
+          code: code,
           value: value,
           sender_account_id: sender_account_id,
           receiver_account_id: receiver_account_id
@@ -16,7 +16,7 @@ defmodule HelloFinanceWeb.TransfersView do
       message: "Transfer created",
       data: %{
         id: id,
-        currency: currency,
+        code: code,
         value: value,
         sender_account_id: sender_account_id,
         receiver_account_id: receiver_account_id
