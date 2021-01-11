@@ -5,7 +5,7 @@ defmodule HelloFinance.User.Account.GetTest do
   alias User.Account
   alias Account.Get
 
-  @valid_attrs_no_user %{currency: "BRL", balance: 100}
+  @valid_attrs_no_user %{code: "BRL", balance: 100}
   @helper_user_attrs %{name: "Diogo", email: "dcdourado@gmail.com", password: "123456"}
 
   describe "call/1" do
@@ -19,7 +19,7 @@ defmodule HelloFinance.User.Account.GetTest do
       {:ok, %Account{id: account_id}} = Repo.insert(account_struct)
 
       assert {:ok, result} = Get.call(account_id)
-      assert %Account{currency: "BRL", balance: 100} = result
+      assert %Account{code: "BRL", balance: 100} = result
     end
 
     test "when the given id does not exists, returns an error" do

@@ -3,8 +3,8 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
 
   import HelloFinanceWeb.Auth.Guardian
 
-  @create_attrs %{currency: "BRL", balance: 100}
-  @invalid_attrs %{currency: nil, balance: nil}
+  @create_attrs %{code: "BRL", balance: 100}
+  @invalid_attrs %{code: nil, balance: nil}
   @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
 
   describe "create/2" do

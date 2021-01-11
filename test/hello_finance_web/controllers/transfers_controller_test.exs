@@ -23,7 +23,7 @@ defmodule HelloFinanceWeb.Controllers.TransfersControllerTest do
       conn: conn,
       user_id: user_id
     } do
-      account_params = %{currency: "BRL", balance: 1000, user_id: user_id}
+      account_params = %{code: "BRL", balance: 1000, user_id: user_id}
 
       {:ok, account_struct} = Account.build(account_params)
       {:ok, %Account{id: from}} = Repo.insert(account_struct)
