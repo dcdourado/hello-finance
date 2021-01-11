@@ -6,11 +6,14 @@ defmodule HelloFinance.User.Account do
   alias Ecto.Changeset
   alias HelloFinance.Currency
   alias HelloFinance.User
+  alias User.Account.Transfer
 
   schema "accounts" do
     field :code, :string
     field :balance, :integer
     belongs_to(:user, User)
+    has_many(:sent_transfers, Transfer, foreign_key: :sender_account_id)
+    has_many(:received_transfers, Transfer, foreign_key: :receiver_account_id)
     timestamps()
   end
 
