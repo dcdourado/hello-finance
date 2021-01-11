@@ -12,6 +12,10 @@ defmodule HelloFinanceWeb.ErrorView do
     %{errors: translate_errors(result)}
   end
 
+  def render("401.json", %{result: message}) do
+    %{message: message}
+  end
+
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".

@@ -26,6 +26,15 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# TODO: add secret_key to env variable
+config :hello_finance, HelloFinanceWeb.Auth.Guardian,
+  issuer: "hello_finance",
+  secret_key: "UPr37H9lSEsnLWlzm8Jl7SlRNo/5DI94JGjCuUPdkw8QfljHPrN9dWjgu18CWMhA"
+
+config :hello_finance, HelloFinanceWeb.Auth.Pipeline,
+  module: HelloFinanceWeb.Auth.Guardian,
+  error_handler: HelloFinanceWeb.Auth.ErrorHandler
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

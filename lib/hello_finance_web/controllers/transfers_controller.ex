@@ -3,7 +3,15 @@ defmodule HelloFinanceWeb.TransfersController do
 
   action_fallback HelloFinanceWeb.FallbackController
 
-  def create(conn, params) do
+  def create(conn, %{"from" => from, "to" => to} = params) do
+    %{id: user_id} = Guardian.Plug.current_resource(conn)
+
+    params =
+      params
+      |> Map.put("sender_account_id", from)
+      |> Map.put("receiver_account_id", to)
+      |> Map.put("sender_id", user_id)
+
     params
     |> HelloFinance.create_transfer()
     |> handle_response(conn, "create.json", :created)
