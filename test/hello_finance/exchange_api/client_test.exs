@@ -33,7 +33,7 @@ defmodule HelloFinance.ExchangeApi.ClientTest do
 
       assert {:error, response} = Client.get_rate("INV", "ALID")
 
-      assert response == [message: "invalid currency code"]
+      assert response == [:code, "not found"]
     end
 
     test "when there is an unexpected error, returns the error" do
