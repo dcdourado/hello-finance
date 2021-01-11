@@ -3,7 +3,9 @@ defmodule HelloFinanceWeb.TransfersController do
 
   action_fallback HelloFinanceWeb.FallbackController
 
-  def create(conn, params) do
+  def create(conn, %{"from" => from, "to" => to} = params) do
+    params = Map.put(params, "sender_account_id", from) |> Map.put("receiver_account_id", to)
+
     params
     |> HelloFinance.create_transfer()
     |> handle_response(conn, "create.json", :created)

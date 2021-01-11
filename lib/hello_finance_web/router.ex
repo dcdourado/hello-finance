@@ -20,6 +20,6 @@ defmodule HelloFinanceWeb.Router do
     pipe_through [:api, :auth]
 
     post "/accounts", AccountsController, :create
-    post "/transfers", TransfersController, :create
+    post "/accounts/:from/transfers", TransfersController, :create
   end
 end
