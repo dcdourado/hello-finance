@@ -8,7 +8,7 @@ defmodule HelloFinance.User.Account.Transfer do
   alias HelloFinance.User.Account
 
   schema "transfers" do
-    field :currency, :string
+    field :code, :string
     field :value, :integer
     field :sender_id, :integer, virtual: true
     belongs_to(:sender_account, Account)
@@ -64,8 +64,8 @@ defmodule HelloFinance.User.Account.Transfer do
     end
   end
 
-  defp put_code(changeset, %Account{currency: currency}) do
-    put_change(changeset, :currency, currency)
+  defp put_code(changeset, %Account{code: code}) do
+    put_change(changeset, :code, code)
   end
 
   defp validate_sender_ownership(
