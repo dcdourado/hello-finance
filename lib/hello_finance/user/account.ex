@@ -34,7 +34,6 @@ defmodule HelloFinance.User.Account do
     |> validate_user()
   end
 
-  # TODO: add_error separately for each case
   defp validate_money(
          %Changeset{valid?: true, changes: %{currency: currency, balance: balance}} = changeset
        ) do
