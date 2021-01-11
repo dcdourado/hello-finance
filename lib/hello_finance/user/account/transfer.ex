@@ -16,7 +16,7 @@ defmodule HelloFinance.User.Account.Transfer do
     timestamps()
   end
 
-  @required_params [:currency, :value, :sender_id, :sender_account_id, :receiver_account_id]
+  @required_params [:value, :sender_id, :sender_account_id, :receiver_account_id]
 
   def build(params) do
     params
@@ -30,34 +30,42 @@ defmodule HelloFinance.User.Account.Transfer do
     module
     |> cast(params, @required_params)
     |> validate_required(@required_params)
-    |> validate_money()
-    |> validate_sender_account()
+    |> validate_value()
+    |> validate_sender_account_and_put_code()
     |> validate_receiver_account()
   end
 
-  defp validate_money(%Changeset{valid?: false} = changeset), do: changeset
+  defp validate_value(%Changeset{valid?: false} = changeset), do: changeset
 
-  defp validate_money(%Changeset{changes: %{currency: currency, value: value}} = changeset) do
-    case Currency.build(currency, value) do
+  defp validate_value(%Changeset{changes: %{value: value}} = changeset) do
+    # We are just validating the value here, so we use any valid code
+    test_code = :USD
+
+    case Currency.build(test_code, value) do
       {:ok, _currency} -> changeset
       {:error, [key, message]} -> add_error(changeset, key, message)
     end
   end
 
-  defp validate_sender_account(%Changeset{valid?: false} = changeset), do: changeset
+  defp validate_sender_account_and_put_code(%Changeset{valid?: false} = changeset), do: changeset
 
-  defp validate_sender_account(
+  defp validate_sender_account_and_put_code(
          %Changeset{changes: %{sender_account_id: sender_account_id}} = changeset
        ) do
     case Account.Get.call(sender_account_id) do
       {:ok, account} ->
         changeset
+        |> put_code(account)
         |> validate_sender_ownership(account)
-        |> validate_sender_currency_value(account)
+        |> validate_sender_balance(account)
 
       _nil ->
         add_error(changeset, :sender_account_id, "not found")
     end
+  end
+
+  defp put_code(changeset, %Account{currency: currency}) do
+    put_change(changeset, :currency, currency)
   end
 
   defp validate_sender_ownership(
@@ -72,16 +80,12 @@ defmodule HelloFinance.User.Account.Transfer do
     end
   end
 
-  defp validate_sender_currency_value(
-         %Changeset{changes: %{currency: currency, value: value}} = changeset,
-         account
-       ) do
-    %{currency: account_currency, balance: account_balance} = account
+  defp validate_sender_balance(%Changeset{changes: %{value: value}} = changeset, account) do
+    %{balance: account_balance} = account
 
-    if currency == account_currency and value <= account_balance do
-      changeset
-    else
-      add_error(changeset, :sender_account_id, "insufficient funds or wrong currency code")
+    case value <= account_balance do
+      true -> changeset
+      false -> add_error(changeset, :sender_account_id, "insufficient funds")
     end
   end
 
