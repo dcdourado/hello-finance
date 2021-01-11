@@ -40,7 +40,7 @@ defmodule HelloFinance.User.Account do
        ) do
     case Currency.build(currency, balance) do
       {:ok, _currency} -> changeset
-      _error -> changeset |> add_error(:currency, "invalid") |> add_error(:balance, "invalid")
+      {:error, [key, message]} -> add_error(changeset, key, message)
     end
   end
 
@@ -49,7 +49,7 @@ defmodule HelloFinance.User.Account do
   defp validate_user(%Changeset{valid?: true, changes: %{user_id: id}} = changeset) do
     case User.Get.call(id) do
       {:ok, _user} -> changeset
-      _error -> add_error(changeset, :user_id, "not found")
+      _nil -> add_error(changeset, :user_id, "not found")
     end
   end
 

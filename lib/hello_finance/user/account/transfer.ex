@@ -40,7 +40,7 @@ defmodule HelloFinance.User.Account.Transfer do
   defp validate_money(%Changeset{changes: %{currency: currency, value: value}} = changeset) do
     case Currency.build(currency, value) do
       {:ok, _currency} -> changeset
-      _error -> changeset |> add_error(:currency, "invalid") |> add_error(:value, "invalid")
+      {:error, [key, message]} -> add_error(changeset, key, message)
     end
   end
 
@@ -55,7 +55,7 @@ defmodule HelloFinance.User.Account.Transfer do
         |> validate_sender_ownership(account)
         |> validate_sender_currency_value(account)
 
-      _error ->
+      _nil ->
         add_error(changeset, :sender_account_id, "not found")
     end
   end
