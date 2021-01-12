@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/dcdourado/hello-finance/workflows/Elixir%20CI/badge.svg)](https://github.com/dcdourado/hello-finance/actions)
+
 # HelloFinance
 
 Hello Finance is a financial API which consists on users who owns currency accounts given a valid [ISO 4217](https://pt.wikipedia.org/wiki/ISO_4217) code and can perform transfers between them.
