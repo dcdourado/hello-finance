@@ -25,7 +25,6 @@ defmodule HelloFinanceWeb.AccountsController do
     %{id: user_id} = Guardian.Plug.current_resource(conn)
 
     params = %{account_id: account_id, user_id: user_id}
-    IO.inspect(params)
 
     params
     |> HelloFinance.show_account()

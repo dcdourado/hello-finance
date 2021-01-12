@@ -48,7 +48,7 @@ defmodule HelloFinance.User.Account.ShowTest do
       params = %{account_id: account_id, user_id: thief_id}
 
       assert {:error, message} = Show.call(params)
-      assert message == [message: "user is not the owner of this account"]
+      assert message == :unauthorized
     end
   end
 end

@@ -16,7 +16,7 @@ defmodule HelloFinance.User.Account.Show do
   defp validate_ownership({:ok, %Account{user_id: account_user_id}} = result, user_id) do
     case account_user_id do
       ^user_id -> result
-      _other_user_id -> {:error, message: "user is not the owner of this account"}
+      _other_user_id -> {:error, :unauthorized}
     end
   end
 
