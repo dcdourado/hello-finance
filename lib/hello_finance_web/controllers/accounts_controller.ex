@@ -21,6 +21,17 @@ defmodule HelloFinanceWeb.AccountsController do
     |> handle_response(conn, "index.json", :ok)
   end
 
+  def show(conn, %{"id" => account_id}) do
+    %{id: user_id} = Guardian.Plug.current_resource(conn)
+
+    params = %{account_id: account_id, user_id: user_id}
+    IO.inspect(params)
+
+    params
+    |> HelloFinance.show_account()
+    |> handle_response(conn, "show.json", :ok)
+  end
+
   defp handle_response({:ok, account}, conn, view, status) do
     conn
     |> put_status(status)

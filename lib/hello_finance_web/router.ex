@@ -19,7 +19,7 @@ defmodule HelloFinanceWeb.Router do
   scope "/api", HelloFinanceWeb do
     pipe_through [:api, :auth]
 
-    resources "/accounts", AccountsController, only: [:index, :create]
+    resources "/accounts", AccountsController, only: [:index, :show, :create]
     post "/accounts/:from/transfers", TransfersController, :create
   end
 end
