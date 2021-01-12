@@ -8,11 +8,11 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
   @helper_user_attrs %{name: "Diogo", password: "123456", email: "dcdourado@gmail.com"}
 
   setup %{conn: conn} do
-    {:ok, user} = HelloFinance.create_user(@helper_user_attrs)
+    {:ok, %{id: user_id} = user} = HelloFinance.create_user(@helper_user_attrs)
     {:ok, token, _claims} = encode_and_sign(user)
 
     conn = put_req_header(conn, "authorization", "Bearer #{token}")
-    {:ok, conn: conn}
+    {:ok, conn: conn, user_id: user_id}
   end
 
   describe "create/2" do
@@ -37,4 +37,14 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
     end
   end
 
+  describe "show/2" do
+    test "when user owns the account, returns it and status 200", %{conn: conn, user_id: user_id} do
+      params = Map.put(@create_attrs, :user_id, user_id)
+      {:ok, %{id: account_id}} = HelloFinance.create_account(params)
+
+      conn = get(conn, Routes.accounts_path(conn, :show, account_id))
+
+      assert %{"message" => "Account fetched"} = json_response(conn, :ok)
+    end
+  end
 end
