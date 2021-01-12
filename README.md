@@ -16,7 +16,7 @@ When a transfer is made between distinct currency codes, the conversion is made 
 - Create and migrate your database with `mix ecto.setup`
 - Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser. A [Insomnia v4](https://github.com/dcdourado/hello-finance/blob/master/insomnia.json) file is available to make route debugging easier. 
 
 ## Main releases
 

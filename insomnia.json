@@ -1,0 +1,333 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-01-12T14:06:07.339Z",
+  "__export_source": "insomnia.desktop.app:v2020.5.2",
+  "resources": [
+    {
+      "_id": "req_38226e109b4645a1bd57089548e16ecc",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610455115905,
+      "created": 1610190231128,
+      "url": "https://api.exchangeratesapi.io/latest/?symbols=USD&base=BRL",
+      "name": "exchange-rate",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1610366008013,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "parentId": null,
+      "modified": 1610054981106,
+      "created": 1610054981106,
+      "name": "HelloFinance",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_6ac26e9b1ea94638af26d2a4eb15923d",
+      "parentId": "fld_c1cab5b2c277486997f4e5abc7c2a4de",
+      "modified": 1610457668830,
+      "created": 1610133784288,
+      "url": "{{ _.base_url }}/accounts",
+      "name": "create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"code\": \"BRL\",\n\t\"balance\": 1000\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_4852ce9a0576440685901daf46de7c00"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token2 }}"
+      },
+      "metaSortKey": -1610392989845,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_c1cab5b2c277486997f4e5abc7c2a4de",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610455126899,
+      "created": 1610133769004,
+      "name": "accounts",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610366008000.5,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_a3db67e472e54acdb50c70135af71815",
+      "parentId": "fld_c1cab5b2c277486997f4e5abc7c2a4de",
+      "modified": 1610395184985,
+      "created": 1610392989795,
+      "url": "{{ _.base_url }}/accounts",
+      "name": "index",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1610392989795,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4fc584e94f604bd2a905b6b5f15ca538",
+      "parentId": "fld_c1cab5b2c277486997f4e5abc7c2a4de",
+      "modified": 1610457784801,
+      "created": 1610454128683,
+      "url": "{{ _.base_url }}/accounts/2",
+      "name": "show",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1610263387091.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_afdcfd86f06a4395a17ec5e30c57bc15",
+      "parentId": "fld_8652bf45afa34d53b5ccc9497ec438ff",
+      "modified": 1610456869707,
+      "created": 1610320710379,
+      "url": "{{ _.base_url }}/accounts/4/transfers",
+      "name": "create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"value\": 100,\n\t\"to\": 2\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_651a894b584f4d83afee4a6e9c7fde1b"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -1610320710379,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_8652bf45afa34d53b5ccc9497ec438ff",
+      "parentId": "fld_c1cab5b2c277486997f4e5abc7c2a4de",
+      "modified": 1610369601585,
+      "created": 1610320700976,
+      "name": "transfers",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610133784338,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_a4189a21f6f34aeeac0a3fa1e131784c",
+      "parentId": "fld_9c7ff8ed76ed425ca94dac9965d77407",
+      "modified": 1610395103162,
+      "created": 1610366015752,
+      "url": "{{ _.base_url }}/signin",
+      "name": "sign_in",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"dcdourado2@gmail.com\",\n\t\"password\": \"123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_ca2b79aa9c8d4d33ba1223b53042f6fb"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610366015753,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_9c7ff8ed76ed425ca94dac9965d77407",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610455131019,
+      "created": 1610366007963,
+      "name": "signin",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610366007994.25,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_ada2e0c7b62c4692a830663b92a8c1a9",
+      "parentId": "fld_704583e542e449e48932a2e0cbc049f6",
+      "modified": 1610395085312,
+      "created": 1610054997025,
+      "url": "{{ _.base_url }}/users",
+      "name": "create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Diogo\",\n\t\"email\": \"dcdourado2@gmail.com\",\n\t\"password\": \"123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e651f41eec184c4a8cf3c2df6d924a36"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610054997026,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_704583e542e449e48932a2e0cbc049f6",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610455123154,
+      "created": 1610054990832,
+      "name": "users",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610366007988,
+      "_type": "request_group"
+    },
+    {
+      "_id": "env_ae7967591a18a5f0544f65685952db510aca3218",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610395112901,
+      "created": 1610054981346,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:4000/api",
+        "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZWxsb19maW5hbmNlIiwiZXhwIjoxNjEyODE0MjkxLCJpYXQiOjE2MTAzOTUwOTEsImlzcyI6ImhlbGxvX2ZpbmFuY2UiLCJqdGkiOiJhOGQwMzY5Mi03NWIxLTQ0MmYtODgzZi1lMGFlMDUxYTExZDUiLCJuYmYiOjE2MTAzOTUwOTAsInN1YiI6IjEiLCJ0eXAiOiJhY2Nlc3MifQ.iLFKh9uarFy3Ox15wbaj6dt1H6v2T7ZMFNPok5DZwkcBljnt5HcIAdLL5sHyjjhnAWNvzD7YQEJwzCEJace5pw",
+        "token2": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZWxsb19maW5hbmNlIiwiZXhwIjoxNjEyODE0MzA0LCJpYXQiOjE2MTAzOTUxMDQsImlzcyI6ImhlbGxvX2ZpbmFuY2UiLCJqdGkiOiI4ZTZjZDc1ZS0zNzQ3LTQ3OGQtYmFlOC1lYjlhOWEyZmRjZGQiLCJuYmYiOjE2MTAzOTUxMDMsInN1YiI6IjIiLCJ0eXAiOiJhY2Nlc3MifQ.AnK2HRn7jYkuG7iNe3gccS72LQ42s7RWiqkj_CF4P_R9xP6wYr6ed7fn9XzEe4j1d-Sby3hAamRnEw5pf51rrA"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "token",
+          "token2"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1610054981346,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_ae7967591a18a5f0544f65685952db510aca3218",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610190243189,
+      "created": 1610054981350,
+      "name": "Default Jar",
+      "cookies": [
+        {
+          "key": "__cfduid",
+          "value": "d3b143b7929359779ea0b781556d878ed1610190242",
+          "expires": "2021-02-08T11:04:02.000Z",
+          "domain": "exchangeratesapi.io",
+          "path": "/",
+          "httpOnly": true,
+          "extensions": [
+            "SameSite=Lax"
+          ],
+          "hostOnly": false,
+          "creation": "2021-01-09T11:04:03.132Z",
+          "lastAccessed": "2021-01-09T11:04:03.132Z",
+          "id": "6298381986617951"
+        }
+      ],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_56c6d4ea203543a7950a8b98fd2de0fb",
+      "parentId": "wrk_3c8e36143a0545c19984efd3a9b17c6b",
+      "modified": 1610054981130,
+      "created": 1610054981130,
+      "fileName": "HelloFinance",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    }
+  ]
+}
