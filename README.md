@@ -18,4 +18,8 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Main releases
 
-- StoneJS challenge (12/01/2020)
+- StoneJS challenge (12/01/2021)
+
+## License
+
+[MIT](https://github.com/dcdourado/hello-finance/blob/master/LICENSE)
