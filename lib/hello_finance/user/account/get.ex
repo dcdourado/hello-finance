@@ -3,7 +3,7 @@ defmodule HelloFinance.User.Account.Get do
 
   def call(id) do
     case fetch_account(id) do
-      nil -> {:error, message: "account not found"}
+      nil -> {:error, "account not found"}
       account -> {:ok, account}
     end
   end

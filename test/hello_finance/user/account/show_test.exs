@@ -30,7 +30,7 @@ defmodule HelloFinance.User.Account.ShowTest do
       params = %{account_id: -1, user_id: user_id}
 
       assert {:error, message} = Show.call(params)
-      assert message == [message: "account not found"]
+      assert message == "account not found"
     end
 
     test "when account id is valid and user is not the owner, returns an error" do

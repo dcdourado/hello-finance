@@ -46,5 +46,23 @@ defmodule HelloFinanceWeb.Controllers.AccountsControllerTest do
 
       assert %{"message" => "Account fetched"} = json_response(conn, :ok)
     end
+
+    test "when user is not the owner of the account, returns unauthorized", %{conn: conn} do
+      another_user_params = Map.put(@helper_user_attrs, :email, "another@gmail.com")
+      {:ok, %{id: another_user_id}} = HelloFinance.create_user(another_user_params)
+
+      account_params = Map.put(@create_attrs, :user_id, another_user_id)
+      {:ok, %{id: account_id}} = HelloFinance.create_account(account_params)
+
+      conn = get(conn, Routes.accounts_path(conn, :show, account_id))
+
+      assert %{"message" => "User unauthorized"} = json_response(conn, :unauthorized)
+    end
+
+    test "when account is invalid, returns an error and status 400", %{conn: conn} do
+      conn = get(conn, Routes.accounts_path(conn, :show, -1))
+
+      assert %{"error" => "account not found"} = json_response(conn, :bad_request)
+    end
   end
 end
