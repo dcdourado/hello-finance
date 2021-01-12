@@ -1,19 +1,21 @@
 # HelloFinance
 
-To start your Phoenix server:
+Hello Finance is a financial API which consists on users who owns currency accounts given a valid [ISO 4217](https://pt.wikipedia.org/wiki/ISO_4217) code and can perform transfers between them.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+When a transfer is made between distinct currency codes, the conversion is made through [Foreign exchange rates API](https://exchangeratesapi.io/), which returns a given exchange rate.
+
+## External dependencies
+
+- [Foreign exchange rates API](https://exchangeratesapi.io/)
+
+## How to start
+
+- Install dependencies with `mix deps.get`
+- Create and migrate your database with `mix ecto.setup`
+- Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Main releases
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+- StoneJS challenge (12/01/2020)
