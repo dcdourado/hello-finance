@@ -2,7 +2,9 @@ defmodule HelloFinance.User.Account.Show do
   alias HelloFinance.Repo
   alias HelloFinance.User.Account
 
-  def call(user_id, account_id) do
+  def call(params) do
+    %{account_id: account_id, user_id: user_id} = params
+
     account_id
     |> Account.Get.call()
     |> validate_ownership(user_id)
