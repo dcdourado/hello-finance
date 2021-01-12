@@ -19,7 +19,7 @@ defmodule HelloFinance.User.GetTest do
     test "when the given id does not exists, returns an error" do
       assert {:error, result} = Get.call(-1)
 
-      assert result == [message: "user not found"]
+      assert result == "user not found"
     end
   end
 end

@@ -12,6 +12,10 @@ defmodule HelloFinanceWeb.ErrorView do
     %{errors: translate_errors(result)}
   end
 
+  def render("400.json", %{result: message}) do
+    %{error: message}
+  end
+
   def render("401.json", %{result: message}) do
     %{message: message}
   end
